@@ -1,32 +1,48 @@
 import "./styles/app.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import PokemonTable from "./components/PokemonTable";
 
 function App() {
 	const [data, setData] = useState([]);
 	const [error, setError] = useState("");
 
 	useEffect(() => {
-		// GET request
+		let pokemonData = [];
+		// Fetches limit of 60 pokemon
 		axios
 			.get("https://pokeapi.co/api/v2/pokemon/?limit=60")
-			.then((res) => {
-				// handle success
-				setData(res.data.results);
-				console.log(res.data.results);
+			.then((response) => response.data.results)
+			.then((pokemon) => {
+				for (const poke of pokemon) {
+					fetchEachPokemon(poke);
+				}
 			})
+			.then(setData(pokemonData))
 			.catch((error) => {
-				// handle error
+				// Set error
 				setError(error);
-				console.log(error);
 			});
 
-		// Will only run once (like componentDidMount in classes)
+		// Fetches each pokemon
+		const fetchEachPokemon = (poke) => {
+			axios
+				.get(poke.url)
+				.then((response) => {
+					pokemonData.push(response.data);
+				})
+				.catch((error) => {
+					// Set error
+					setError(error);
+				});
+		};
+
+		// Only runs once
 	}, []);
 
 	return (
 		<div className='App'>
-			<h1>Pokemon</h1>
+			<PokemonTable data={data} />
 		</div>
 	);
 }
