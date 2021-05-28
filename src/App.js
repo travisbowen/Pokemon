@@ -2,6 +2,7 @@ import "./styles/app.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PokemonTable from "./components/PokemonTable";
+import PokemonAppBar from "./components/PokemonAppBar";
 
 function App() {
 	const [data, setData] = useState([]);
@@ -50,7 +51,8 @@ function App() {
 	}
 	return (
 		<div className='app'>
-			<PokemonTable data={data} />
+			<PokemonAppBar data={data} />
+			{/* <PokemonTable data={data} /> */}
 		</div>
 	);
 }
