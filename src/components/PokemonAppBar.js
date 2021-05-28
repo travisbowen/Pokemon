@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -18,8 +18,7 @@ const calcAverageWeight = (pokeArray) => {
 	const weightArray = pokeArray.map((pokemon) => {
 		return pokemon.weight;
 	});
-	const avg = weightArray.reduce((a, b) => a + b) / weightArray.length;
-	return Math.round(avg);
+	return Math.round(weightArray.reduce((a, b) => a + b) / weightArray.length);
 };
 
 const calcHighestExperience = (pokeArray) => {
@@ -31,29 +30,21 @@ const calcHighestExperience = (pokeArray) => {
 
 const PokemonAppBar = ({ data }) => {
 	const classes = useStyles();
-	const [pokemonData, setPokemonData] = useState([]);
-
-	useEffect(() => {
-		// console.log(data);
-		setPokemonData(data);
-	}, [data, pokemonData]);
 
 	return (
 		<div className={classes.root}>
-			<AppBar position='sticky'>
+			<AppBar position='fixed'>
 				<Toolbar>
 					<Typography variant='h3' className={classes.title}>
 						PokeAPI
 					</Typography>
-					{pokemonData.length > 0 ? (
+					{data.length > 0 ? (
 						<>
 							<Typography variant='h5' className={classes.title}>
-								{`Average Weight: ${calcAverageWeight(pokemonData)}`}
+								{`Average Weight: ${calcAverageWeight(data)}`}
 							</Typography>
 							<Typography variant='h5' className={classes.title}>
-								{`Highest Base Experience: ${calcHighestExperience(
-									pokemonData,
-								)}`}
+								{`Highest Base Experience: ${calcHighestExperience(data)}`}
 							</Typography>
 						</>
 					) : null}

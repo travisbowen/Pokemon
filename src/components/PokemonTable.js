@@ -82,12 +82,13 @@ const EnhancedTableHead = (props) => {
 
 const useStyles = makeStyles((theme) => ({
 	root: {
+		top: 0,
+		flexGrow: 1,
 		width: "50%",
 		height: "60%",
 	},
 	paper: {
 		width: "100%",
-		marginBottom: theme.spacing(15),
 	},
 	table: {
 		minWidth: 750,
@@ -107,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
 		width: 1,
 	},
 	tableCell: {
-		fontSize: "9pt",
+		fontSize: "8pt",
 	},
 }));
 
@@ -117,6 +118,7 @@ const PokemonTable = (data) => {
 	const [order, setOrder] = React.useState("asc");
 	const [orderBy, setOrderBy] = React.useState("name");
 	const [page, setPage] = React.useState(0);
+	// eslint-disable-next-line no-unused-vars
 	const [rowsPerPage, setRowsPerPage] = React.useState(20);
 
 	const handleRequestSort = (event, property) => {
